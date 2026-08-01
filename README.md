@@ -16,6 +16,8 @@ Adam-EEG packs four Texas Instruments **ADS1299** 24-bit, 8-channel simultaneous
 
 - [Why this exists](#why-this-exists)
 - [Technical specifications](#technical-specifications)
+- [Connectors & pinout](#connectors--pinout)
+- [Passive component reference](#passive-component-reference)
 - [System architecture](#system-architecture)
 - [Repository contents](#repository-contents)
 - [Getting started](#getting-started)
@@ -47,6 +49,32 @@ Research-grade multichannel EEG hardware is expensive and closed. Adam-EEG set o
 | **Complexity** | 354 schematic parts / 229 placed board elements |
 | **CAD format** | EAGLE 6.6.0 XML (`.sch` / `.brd`) — single schematic sheet |
 | **License** | Apache License 2.0 |
+
+## Connectors & pinout
+
+Extracted directly from the schematic's named nets — real signal names, not inferred from silkscreen alone.
+
+| Connector | Type | Signals | Role |
+|---|---|---|---|
+| `ARDUINO_CONN` | 1×11 header | `CS1`–`CS4`, `SCLK`, `DIN`, `DOUT`, `DRDY`, `RST`, `PD`, `STRT` | Full SPI daisy-chain + control breakout — lets an external Arduino-compatible host drive all 4 ADS1299 directly, independent of the onboard ATmega328s |
+| `ELECTRODES_P&N` | 1×18 header | 18 electrode nets | Primary differential (P/N) electrode input header |
+| `ELECTRODES` / `ELECTRODES1` / `ELECTRODES2` | 3× 1×8 header | Per-channel buffered outputs (`1O1`–`8O1`, `1O2`–`8O2`, `1O3`–`8O3`) | Buffered channel-output test/tap points for 3 of the 4 ADS1299s |
+| `POWER_PIN` | 1×2 header | `+5V`, `AGND` | Main board power input, feeding the onboard LDO/charge-pump regulation |
+| `JP3`–`JP5` | 1×2 jumpers | `DIN`/`JU1`, `DOUT`/`JU2`, `SCLK`/`JU3` | In-line jumpers on the SPI data/clock lines (break/test-point access) |
+| `JP1`–`JP2` | 1×2 jumpers | Internal (unlabeled) nets | Present in the schematic; exact function isn't silkscreen-documented — trace before relying on them |
+
+## Passive component reference
+
+Most-used passive values, pulled from the real `value=` attributes in the schematic (useful for a BOM sanity-check or respin):
+
+| Component class | Dominant value | Count | Likely role |
+|---|---|---|---|
+| Resistor | 5 kΩ | 60 of 69 | Per-channel bias/lead-off network (matches ADS1299's typical RLD topology) |
+| Capacitor | 4.7 nF | 48 of 127 | Per-channel input RC filtering |
+| Capacitor | 1 µF | 36 of 127 | Local/bulk decoupling |
+| Capacitor | 0.1 µF | 28 of 127 | High-frequency decoupling |
+| Capacitor | 10 µF / 100 µF | 7 / 4 | Bulk supply-rail reservoirs |
+| Crystal | 32.768 kHz (`Y1` or `Y2`, confirmed in schematic text) | 1 of 2 | Real-time/watchdog clock — the second crystal has no frequency called out in the schematic text, verify before assuming a value |
 
 ## System architecture
 
