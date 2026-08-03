@@ -10,7 +10,7 @@
 
 Adam-EEG packs four Texas Instruments **ADS1299** 24-bit, 8-channel simultaneous-sampling analog front ends onto one board — 32 truly simultaneous EEG channels, daisy-chained over a single SPI bus — with onboard microSD logging for fully standalone (untethered) recording. It's the original prototype in the Adam-EEG lineage: a from-scratch, low-cost, open alternative to research-grade EEG acquisition hardware.
 
-**Also published at:** [Hackaday.io](https://hackaday.io/project/206308-adam-eeg-open-source-32-channel-eeg-board) · [dev.to](https://dev.to/shiva16/adam-eeg-an-open-source-32-channel-eeg-board-from-2015-quad-ads1299-dual-atmega328-2gfi) · [NeuroTechX/awesome-bci](https://github.com/NeuroTechX/awesome-bci#consumer-and-diy-devices) (merged)
+**Also published at:** [Hackaday.io](https://hackaday.io/project/206308-adam-eeg-open-source-32-channel-eeg-board) · [dev.to](https://dev.to/shiva16/adam-eeg-an-open-source-32-channel-eeg-board-from-2015-quad-ads1299-dual-atmega328-2gfi) · [NeuroTechX/awesome-bci](https://github.com/NeuroTechX/awesome-bci#consumer-and-diy-devices) ([merged](https://github.com/NeuroTechX/awesome-bci/pull/92))
 
 ---
 
